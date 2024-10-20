@@ -583,3 +583,79 @@ tempmail.emailContent = async (_0x2bb874, _0x365dd7, _0x53af41) => {
     return null;
   }
 };
+
+smd({
+  cmdname: "moodguesser3",
+  alias: ["guessmood", "mood"],
+  desc: "Guess your mood with different styles!",
+  category: "fun",
+  filename: __filename
+}, async (message, args) => {
+  try {
+    // List of moods to choose from
+    const moods = [
+      "Happy 😄",
+      "Sad 😢",
+      "Excited 😁",
+      "Angry 😡",
+      "Relaxed 😌",
+      "Bored 😐",
+      "Nervous 😬",
+      "Confident 😎",
+      "Curious 🤔",
+      "Motivated 🚀",
+      "Grateful 🙏",
+      "Hopeful 🌈",
+      "Overwhelmed 😰",
+      "Amused 😂",
+      "Lonely 😔",
+      "Content 😊",
+      "Stressed 😓",
+      "Inspired ✨",
+      "Cheerful 😃",
+      "Frustrated 😤"
+    ];
+
+    // List of styles for formatting
+    const styles = [
+      "*",  // Bold
+      "_",  // Italic
+      "~",  // Strikethrough
+      "`"   // Inline code
+    ];
+
+    // Function to get a random element from an array
+    function getRandomElement(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    // Select a random mood and style
+    const mood = getRandomElement(moods);
+    const style = getRandomElement(styles);
+    const styledMood = `${style}${mood}${style}`;
+    const finalMessage = `You are feeling: ${styledMood}`;
+    
+    // Measure start time for the typing effect
+    const { key } = await message.reply("*Typing...*");
+    
+    let typedMessage = "";
+
+    // Type one character at a time
+    for (let i = 0; i < finalMessage.length; i++) {
+      typedMessage += finalMessage[i];
+      await new Promise((resolve) => setTimeout(resolve, 300)); // Delay of 300ms between characters
+      await message.send(typedMessage, { edit: key });
+    }
+
+    // Send the image along with the final message
+    await message.send(
+      "https://files.catbox.moe/bh2fpj.jpg", // Replace with your image URL
+      { caption: finalMessage },
+      "img",
+      message
+    );
+    
+  } catch (error) {
+    console.error("Error processing mood guesser command:", error);
+  }
+});
