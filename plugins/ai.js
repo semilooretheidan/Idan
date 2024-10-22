@@ -13,7 +13,7 @@ const fetch = require("node-fetch");
 
 smd(
   {
-    pattern: "Nikka",
+    pattern: "deadcmd",
     desc: "Get a response from Bing AI based on user query.",
     category: "ai",
     filename: __filename,
@@ -881,8 +881,8 @@ smd(
   );
 smd(
   {
-    pattern: "blackbox",
-    desc: "Get a response from BlackBox AI based on user query.",
+    pattern: "nikka",
+    desc: "Get a response from NIKKA-AI based on user query.",
     category: "ai",
     filename: __filename,
   },
@@ -891,41 +891,59 @@ smd(
       // Extract the query from the message
       const query = m.text.split(' ').slice(1).join(' ');
       if (!query) {
-        return await m.send("Please provide a query, e.g., `.blackbox What is the weather today?`.");
+        return await m.send("Please provide a query, e.g., `,nikka What is the weather today?`.");
       }
 
       // Send a loading message
-      await m.send("...... 🤔");
+      await m.send("......let her cook🤔");
 
       // Define the API URL
-      const apiUrl = `https://giftedapis.us.kg/api/ai/blackbox?q=${encodeURIComponent(query)}&apikey=_0x5aff35,_0x187643`;
+      const apiUrl = `https://api.giftedtech.my.id/api/ai/blackbox?q=${encodeURIComponent(query)}&apikey=king_haki-k7gjd8@gifted_api`;
+      console.log(`Requesting API with URL: ${apiUrl}`); // Log the URL for debugging
+
+      // Fetch the API response
       const response = await fetch(apiUrl);
 
+      // Check if the response is OK
       if (!response.ok) {
-        return await m.send(
-          `*_Error: ${response.status} ${response.statusText}_*`
-        );
+        return await m.send(`*_Error: ${response.status} ${response.statusText}_*`);
       }
 
-      // Wait for 2 seconds
+      // Wait for 2 seconds (optional)
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      // Get the result from the API response
+      // Parse the API response
       const data = await response.json();
-      const resultText = data.result; // Extract the text from the result part
-      const message = `*Response:* \n\n${resultText}`;
+      console.log(`API Response: ${JSON.stringify(data)}`); // Log the API response for debugging
 
-      // Send the final response
-      await m.send(message);
+      // Extract the result text
+      const resultText = data.result || "No response found."; // Ensure to handle cases with no result
+
+      // Construct the final styled message
+      const message = `
+*🧠 NIKKA-AI Responds:*
+
+_${resultText}_
+
+*✨ Powered by Haki*`;
+
+      // Define the image URL (replace with your desired image URL)
+      const imageUrl = "https://files.catbox.moe/bh2fpj.jpg"; // Update with your actual image URL
+
+      // Send the styled response with the image
+      await m.send(
+        imageUrl,
+        { caption: message }, // Combined message with image
+        "img",
+        m
+      );
     } catch (e) {
-      await m.error(`${e}\n\ncommand: blackbox`, e);
+      // Log the error and send a message to the user
+      console.error(e); // Log the error for debugging
+      await m.error(`An error occurred: ${e.message}\n\ncommand: nikka`, e);
     }
   }
 );
-
-
-
-
 
 /*smd(
   {
@@ -981,3 +999,5 @@ smd(
   }
 );
 */
+
+
