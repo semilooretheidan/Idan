@@ -19,7 +19,7 @@ const {
 } = require("../lib");
 const axios = require("axios");
 const sᴜʜᴀɪʟ_ᴍᴅ = require("../lib/plugins");
-smd({
+({
   'pattern': "lydea",
   'alias': ["chatbot"],
   'desc': "activates and deactivates chatbot.\nuse buttons to toggle.",
@@ -89,46 +89,7 @@ smd({
     _0x5ab8b7.error(_0x2cce1b + "\n\ncommand: lydea(chatbot)", _0x2cce1b);
   }
 });
-let warn = {
-  addwarn: async (_0x7dc045, _0x5add8c, _0x1ff3da = {}) => {
-    try {
-      let _0x41c209 = (await userdb.findOne({
-        'id': _0x7dc045
-      })) || (await userdb["new"]({
-        'id': _0x7dc045
-      }));
-      let _0x2634c7 = _0x41c209.warn || {};
-      if (!_0x2634c7[_0x5add8c]) {
-        _0x2634c7[_0x5add8c] = [];
-      }
-      var _0x279bae = {
-        'chat': 'PRIVATE',
-        'reason': "Inapropriate Behaviour",
-        'date': new Date(),
-        'warnedby': tlang().title,
-        ..._0x1ff3da
-      };
-      _0x2634c7[_0x5add8c].push(_0x279bae);
-      _0x41c209 = await userdb.updateOne({
-        'id': _0x7dc045
-      }, {
-        'warn': _0x2634c7
-      });
-      return {
-        'status': true,
-        'warning': _0x2634c7[_0x5add8c].length,
-        'user': _0x41c209
-      };
-    } catch (_0x1c3576) {
-      return {
-        'status': false,
-        'warning': 0x0,
-        'user': {},
-        'error': _0x1c3576
-      };
-    }
-  }
-};
+        
 smd({
   'pattern': "checkwarn",
   'alias': ["listwarn", 'chatwarn', "allwarn"],
